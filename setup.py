@@ -15,7 +15,7 @@ setup(
     entry_points = {
         'console_scripts': ['xrf=xorg_resolution_fixer:main'],
     },
-    url = "http://packages.python.org/an_example_pypi_project",
+    url = "https://github.com/jasoc/xorg-resolution-fixer",
     packages=['xorg_resolution_fixer'],
     long_description=read('README'),
     classifiers=[
