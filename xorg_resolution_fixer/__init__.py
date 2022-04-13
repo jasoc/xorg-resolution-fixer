@@ -1,12 +1,12 @@
 import getpass
 import argparse
 
-from .xrandr import fixResolution, getDisplayOrExitIfNone
+from .xrandr import fixResolution, getDisplayOrExitIfNone, getDisplays
 from .systemd import createService
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Backup script for VMware ESXi")
+    parser = argparse.ArgumentParser(description="Xorg resolution fixer")
 
     parser.add_argument("-e", "--height", type=int, nargs='?',
                         default=1080, help="Height of the resolution")
@@ -31,15 +31,30 @@ def main():
                         nargs='?', const=True, default=False,
                         help='Create a systemd service that call the script after display-manager.service')
 
+    parser.add_argument('-l', '--list-displays', dest='list_displays',
+                        nargs='?', const=True, default=False,
+                        help='List the available displays')
+
     args = parser.parse_args()
 
     user = args.user if args.user is not None else getpass.getuser()
 
     display = getDisplayOrExitIfNone(args.display)
 
+    nop = True
+
     if args.set:
         fixResolution(args.height, args.width, args.refresh_rate, display)
-    elif args.install:
+        nop = False
+    
+    if args.install:
         createService(args.height, args.width, args.refresh_rate, display, user)
-    else:
+        nop = False
+    
+    if args.list_displays:
+        for d in getDisplays():
+            print(d)
+        nop = False
+
+    if nop:
         parser.print_help()
