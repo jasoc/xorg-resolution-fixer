@@ -10,10 +10,10 @@ def main():
 
     parser.add_argument("-e", "--height", type=int, nargs='?',
                         default=1080, help="Height of the resolution")
-    
+
     parser.add_argument("-w", "--width", type=int, nargs='?',
                         default=1920, help="Width of the resolution")
-    
+
     parser.add_argument("-r", "--refresh-rate", type=int, nargs='?',
                         default=60, help="Refresh rate of the resolution")
 
@@ -38,23 +38,19 @@ def main():
     args = parser.parse_args()
 
     user = args.user if args.user is not None else getpass.getuser()
-
     display = getDisplayOrExitIfNone(args.display)
-
     nop = True
 
     if args.set:
         fixResolution(args.height, args.width, args.refresh_rate, display)
         nop = False
-    
     if args.install:
-        createService(args.height, args.width, args.refresh_rate, display, user)
+        createService(args.height, args.width,
+                      args.refresh_rate, display, user)
         nop = False
-    
     if args.list_displays:
         for d in getDisplays():
             print(d)
         nop = False
-
     if nop:
         parser.print_help()
