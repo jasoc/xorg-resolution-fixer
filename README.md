@@ -44,7 +44,7 @@ xrf --set --height 1080 --width 1920 --refresh-rate 120 --display HDMI-1
 Be aware that the ```--display``` parameter requires any available display that you can list with
 
 ```
-xrf --list-display
+xrf --list-displays
 ```
 
 To install it as a systemd service, use
