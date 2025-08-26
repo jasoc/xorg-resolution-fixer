@@ -2,6 +2,7 @@ import os
 
 
 def run(cmd):
+    print(f'Running command: {cmd}')
     return os.popen(cmd).read()
 
 
