@@ -1,3 +1,6 @@
+import os
+
+
 xrf_service_name = 'xorg-resolution-fixer.service'
 
 
@@ -23,4 +26,5 @@ WantedBy=graphical-session.target
 
 def createService(height, width, refresh_rate, display, user):
     with open(f'{defaultSystemdPath(user)}/{xrf_service_name}', 'w') as f:
+        os.makedirs(defaultSystemdPath(user), exist_ok=True)
         f.write(getService(height, width, refresh_rate, display))
