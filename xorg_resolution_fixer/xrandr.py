@@ -32,7 +32,7 @@ def fixResolution(height, width, refresh_rate, display):
     display = getDisplayOrExitIfNone(display)
     print(f'Setting up display {display} with resolution {width}x{height} and refresh rate {refresh_rate}')
     out = run(f'cvt {width} {height} {refresh_rate}').split(' ')
-    name = out[12][:-1][1:]
+    name = out[11][:-1][1:]
     modeline_str = f"\"{name}\" {' '.join(out[-14:])}"
     run(f'xrandr --newmode {modeline_str}')
     run(f'xrandr --addmode {display} {name}')
